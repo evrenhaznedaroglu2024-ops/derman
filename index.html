@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DermaRash – AI-powered skin analysis app. Instantly identify rashes and skin conditions with advanced AI technology. Available on iOS." />
+  <meta name="keywords" content="skin analysis, rash identifier, AI dermatology, skin condition, dermatologist app, iOS" />
+  <meta property="og:title" content="DermaRash – AI Skin Analysis" />
+  <meta property="og:description" content="Instantly analyze skin rashes and conditions with AI-powered dermatology technology." />
+  <meta property="og:type" content="website" />
+  <title>DermaRash – AI Skin Analysis</title>
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:   #4A90D9;
+      --teal:   #2EC4B6;
+      --navy:   #1B2838;
+      --red:    #FF6B6B;
+      --green:  #51CF66;
+      --gold:   #FFD43B;
+      --bg:     #F7F9FC;
+      --card:   #FFFFFF;
+      --text:   #1A1A2E;
+      --muted:  #6B7280;
+      --border: #E5E7EB;
+      --grad: linear-gradient(135deg, var(--blue) 0%, var(--teal) 100%);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { font-size: 18px; font-weight: 700; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); }
+    .nav-links a:hover { color: var(--blue); text-decoration: none; }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ── Layout ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+    section:nth-child(even) { background: var(--card); }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(160deg, #EEF4FF 0%, #E8F9F8 100%);
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: white; border: 1px solid var(--border);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 13px; font-weight: 600; color: var(--blue);
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 800; line-height: 1.1;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--muted); max-width: 560px; margin: 0 auto 40px;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--grad); color: white;
+      padding: 14px 28px; border-radius: 14px;
+      font-size: 16px; font-weight: 700;
+      box-shadow: 0 4px 20px rgba(74,144,217,0.35);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(74,144,217,0.4); text-decoration: none; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: white; color: var(--text);
+      padding: 14px 28px; border-radius: 14px;
+      font-size: 16px; font-weight: 600;
+      border: 1.5px solid var(--border);
+      transition: border-color .15s, transform .15s;
+    }
+    .btn-secondary:hover { border-color: var(--blue); transform: translateY(-2px); text-decoration: none; }
+    .hero-disclaimer {
+      margin-top: 20px; font-size: 12px; color: var(--muted);
+    }
+
+    /* ── Section Titles ── */
+    .section-title { font-size: clamp(24px, 4vw, 36px); font-weight: 800; text-align: center; margin-bottom: 12px; }
+    .section-sub { font-size: 16px; color: var(--muted); text-align: center; max-width: 560px; margin: 0 auto 48px; }
+
+    /* ── Features Grid ── */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .feature-card {
+      background: var(--bg); border-radius: 20px; padding: 28px;
+      border: 1px solid var(--border);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 16px;
+    }
+    .icon-blue { background: rgba(74,144,217,0.12); }
+    .icon-teal { background: rgba(46,196,182,0.12); }
+    .icon-gold { background: rgba(255,212,59,0.15); }
+    .icon-green { background: rgba(81,207,102,0.12); }
+    .icon-red  { background: rgba(255,107,107,0.12); }
+    .icon-navy { background: rgba(27,40,56,0.08); }
+    .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ── How It Works ── */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-top: 48px; }
+    .step { text-align: center; }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--grad); color: white;
+      font-size: 20px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .step p  { font-size: 14px; color: var(--muted); }
+
+    /* ── User Guide ── */
+    .guide-block { background: var(--bg); border-radius: 20px; padding: 32px; border: 1px solid var(--border); margin-bottom: 24px; }
+    .guide-block h3 { font-size: 18px; font-weight: 700; color: var(--blue); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .guide-block ul, .guide-block ol { padding-left: 20px; }
+    .guide-block li { font-size: 15px; color: var(--muted); margin-bottom: 8px; line-height: 1.6; }
+    .guide-block li strong { color: var(--text); }
+    .tip-box {
+      background: rgba(46,196,182,0.08); border-left: 3px solid var(--teal);
+      border-radius: 0 12px 12px 0; padding: 14px 18px; margin-top: 16px;
+      font-size: 14px; color: var(--text);
+    }
+    .warning-box {
+      background: rgba(255,107,107,0.08); border-left: 3px solid var(--red);
+      border-radius: 0 12px 12px 0; padding: 14px 18px; margin-top: 16px;
+      font-size: 14px; color: var(--text);
+    }
+
+    /* ── Legal sections ── */
+    .legal-content { max-width: 780px; margin: 0 auto; }
+    .legal-content h2 { font-size: 26px; font-weight: 800; margin: 40px 0 16px; color: var(--navy); }
+    .legal-content h3 { font-size: 18px; font-weight: 700; margin: 28px 0 10px; color: var(--text); }
+    .legal-content p  { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+    .legal-content ul, .legal-content ol { padding-left: 22px; margin-bottom: 12px; }
+    .legal-content li { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
+    .legal-content strong { color: var(--text); }
+    .legal-content a { color: var(--blue); }
+    .legal-date { display: inline-block; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .legal-divider { border: none; border-top: 2px solid var(--border); margin: 48px 0; }
+
+    /* ── Contact / Support ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .contact-card {
+      background: var(--card); border-radius: 20px; padding: 28px;
+      border: 1px solid var(--border); text-align: center;
+    }
+    .contact-icon { font-size: 36px; margin-bottom: 14px; }
+    .contact-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .contact-card p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+    .contact-card a {
+      display: inline-block; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 8px 18px; font-size: 14px; font-weight: 600; color: var(--blue);
+    }
+    .contact-card a:hover { background: var(--blue); color: white; text-decoration: none; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.7);
+      padding: 48px 24px 32px;
+      text-align: center;
+    }
+    .footer-logo { font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .footer-tagline { font-size: 13px; margin-bottom: 28px; opacity: .7; }
+    .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+    .footer-links a { color: rgba(255,255,255,0.6); font-size: 13px; }
+    .footer-links a:hover { color: white; text-decoration: none; }
+    .footer-copy { font-size: 12px; opacity: .5; }
+
+    /* ── Medical Disclaimer Banner ── */
+    .disclaimer-banner {
+      background: rgba(255,107,107,0.06); border: 1px solid rgba(255,107,107,0.25);
+      border-radius: 14px; padding: 20px 24px; margin: 40px 0;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .disclaimer-banner .icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .disclaimer-banner p { font-size: 14px; color: var(--text); line-height: 1.6; }
+    .disclaimer-banner strong { color: var(--red); }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-logo">🩺 DermaRash</div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#user-guide">User Guide</a></li>
+    <li><a href="#privacy">Privacy Policy</a></li>
+    <li><a href="#terms">Terms of Use</a></li>
+    <li><a href="#support">Support</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">✨ AI-Powered Dermatology</div>
+    <h1>Understand Your Skin<br>Instantly</h1>
+    <p>DermaRash uses advanced AI to analyze skin rashes and conditions — providing detailed insights in seconds, right from your iPhone.</p>
+    <div class="hero-buttons">
+      <a href="https://apps.apple.com/app/dermarash" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+      <a href="#how-it-works" class="btn-secondary">
+        See How It Works →
+      </a>
+    </div>
+    <p class="hero-disclaimer">⚕️ Not a substitute for professional medical advice. For informational purposes only.</p>
+  </div>
+</section>
+
+<!-- ── Features ── -->
+<section id="features">
+  <div class="container">
+    <h2 class="section-title">Everything You Need to Know About Your Skin</h2>
+    <p class="section-sub">Professional-grade AI analysis combined with easy-to-understand reports — right in your pocket.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon icon-blue">🔬</div>
+        <h3>AI Skin Analysis</h3>
+        <p>Advanced vision AI analyzes your skin photo and identifies possible conditions from a comprehensive medical database.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-teal">📊</div>
+        <h3>Detailed Reports</h3>
+        <p>Receive structured reports with possible diagnoses, match confidence, care guidance, and red flag indicators.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-gold">💬</div>
+        <h3>AI Dermatology Chat</h3>
+        <p>Ask follow-up questions to our AI dermatologist. Get personalized answers about symptoms, treatments, and when to seek care.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-green">📅</div>
+        <h3>Scan History</h3>
+        <p>Track your skin health over time. Review past scans, monitor changes, and share reports with your doctor.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-red">🚨</div>
+        <h3>Urgency Assessment</h3>
+        <p>AI flags red flag symptoms and advises when to seek immediate, prompt, or routine medical care.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-navy">🌍</div>
+        <h3>Multi-Language Support</h3>
+        <p>Full support for English, Turkish, and Spanish — complete reports and interface in your preferred language.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ── -->
+<section id="how-it-works">
+  <div class="container">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Get a comprehensive skin analysis in under a minute with our simple four-step process.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Take a Photo</h3>
+        <p>Capture a clear, well-lit photo of the affected skin area using your camera or select from your gallery.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Describe Symptoms</h3>
+        <p>Provide details: body location, duration, symptoms (itching, redness, etc.), and any recent changes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>AI Analyzes</h3>
+        <p>Our two-stage AI pipeline — vision analysis followed by medical report generation — processes your scan in seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Review Report</h3>
+        <p>Receive a structured report with possible conditions, care guidance, and recommendations for next steps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── User Guide ── -->
+<section id="user-guide">
+  <div class="container">
+    <h2 class="section-title">User Guide</h2>
+    <p class="section-sub">Everything you need to get the best results from DermaRash.</p>
+
+    <div class="disclaimer-banner">
+      <div class="icon">⚕️</div>
+      <p><strong>Medical Disclaimer:</strong> DermaRash is an informational tool powered by AI. It is <strong>NOT a medical diagnostic device</strong> and does not replace consultation with a qualified dermatologist or healthcare professional. Always seek professional medical advice for any health concerns.</p>
+    </div>
+
+    <div class="guide-block">
+      <h3>📸 Taking the Perfect Photo</h3>
+      <ul>
+        <li><strong>Good lighting:</strong> Use natural daylight or a bright indoor light. Avoid harsh shadows or flash glare.</li>
+        <li><strong>Close-up focus:</strong> Hold your phone 15–25 cm from the skin. The rash should fill most of the frame.</li>
+        <li><strong>Sharp image:</strong> Tap your screen to focus before shooting. Avoid blurry or motion-blurred shots.</li>
+        <li><strong>Clean skin:</strong> Remove any makeup, creams, or bandages from the area before scanning.</li>
+        <li><strong>Multiple angles:</strong> If the rash is large or has distinct features, consider scanning different areas.</li>
+      </ul>
+      <div class="tip-box">💡 <strong>Tip:</strong> The app automatically checks image quality and will alert you if the photo is too blurry, too dark, or too small for accurate analysis.</div>
+    </div>
+
+    <div class="guide-block">
+      <h3>📝 Filling in the Details Form</h3>
+      <p>Accurate symptom information significantly improves analysis quality. Required fields are marked with *.</p>
+      <ul>
+        <li><strong>Body Location*</strong> — Select the area of the body where the rash appears.</li>
+        <li><strong>Duration*</strong> — How long have you had this condition? (Under 24 hours / 1–3 days / 1–2 weeks / Over 2 weeks)</li>
+        <li><strong>Current Symptoms*</strong> — Check all that apply: redness, itching, swelling, warmth, pain, blistering, scaling, oozing.</li>
+        <li><strong>First Appearance</strong> — Describe how the rash initially looked when it first appeared.</li>
+        <li><strong>Possible Triggers</strong> — Note any potential triggers: new products, foods, stress, outdoor exposure, etc.</li>
+        <li><strong>Recent Changes</strong> — Has the rash spread, changed color, or developed new features?</li>
+        <li><strong>Current Medications</strong> — List any creams or treatments already applied.</li>
+      </ul>
+      <div class="warning-box">⚠️ <strong>Important:</strong> If you are experiencing severe symptoms — widespread rash, difficulty breathing, high fever, or facial/throat swelling — call emergency services immediately. Do not use this app as a substitute for emergency care.</div>
+    </div>
+
+    <div class="guide-block">
+      <h3>📄 Understanding Your Report</h3>
+      <ul>
+        <li><strong>Possible Matches</strong> — Up to 3 potential skin conditions ranked by likelihood. Each includes why it may or may not match, and common signs.</li>
+        <li><strong>Match Strength</strong> — <em>Higher / Moderate / Lower</em> — indicates how closely the visual and symptom data aligns with each condition.</li>
+        <li><strong>Care Guidance</strong> — Practical steps you can take at home to manage symptoms.</li>
+        <li><strong>Seek Care</strong> — Urgency level: <em>Non-urgent review / Prompt review / Urgent</em> — and specific reasons why you should consult a doctor.</li>
+        <li><strong>Red Flags</strong> — Warning signs that require immediate medical attention.</li>
+      </ul>
+      <div class="tip-box">💡 <strong>Tip:</strong> Save your report and show it to your doctor. It provides a structured summary that can help guide the consultation.</div>
+    </div>
+
+    <div class="guide-block">
+      <h3>💬 Using the AI Chat</h3>
+      <ul>
+        <li>Tap the <strong>Chat</strong> tab to start a conversation with the AI dermatology assistant.</li>
+        <li>Ask follow-up questions about your scan results, general skin care, or symptoms.</li>
+        <li>You can attach photos directly in the chat for contextual analysis.</li>
+        <li>Free users receive 3 messages per day. Premium users have unlimited access.</li>
+      </ul>
+    </div>
+
+    <div class="guide-block">
+      <h3>💎 Free vs Premium</h3>
+      <ul>
+        <li><strong>Free:</strong> 1 scan per day, 3 AI chat messages per day, last 3 scans in history.</li>
+        <li><strong>Premium:</strong> Unlimited scans, unlimited AI chat, full scan history, detailed reports, and priority analysis.</li>
+      </ul>
+      <p style="margin-top:12px; font-size:14px; color:var(--muted);">Premium plans are available as Weekly, Monthly, or Yearly subscriptions. Subscriptions auto-renew and can be managed in your Apple ID account settings.</p>
+    </div>
+
+    <div class="guide-block">
+      <h3>🔒 Privacy &amp; Your Data</h3>
+      <ul>
+        <li>Photos you submit are processed securely and are <strong>not stored permanently</strong> on our servers beyond what is needed for analysis.</li>
+        <li>You can delete all your scan history at any time from <strong>Settings → Delete History</strong>.</li>
+        <li>You can revoke your data processing consent at any time from <strong>Settings → Privacy Controls → Revoke Consent</strong>.</li>
+        <li>Your data is never sold or shared with third-party advertisers.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── Privacy Policy ── -->
+<section id="privacy" style="background: var(--card);">
+  <div class="container">
+    <div class="legal-content">
+      <h2 class="section-title" style="text-align:left;">Privacy Policy</h2>
+      <span class="legal-date">Last updated: April 15, 2026</span>
+
+      <p>DermaRash ("we", "our", or "us"), operated by Evren Haznedaroglu, is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the DermaRash mobile application.</p>
+
+      <div class="disclaimer-banner">
+        <div class="icon">⚕️</div>
+        <p>DermaRash processes photos of skin conditions solely to provide AI-generated informational analysis. We do not store, sell, or share identifiable health images with third parties.</p>
+      </div>
+
+      <h3>1. Information We Collect</h3>
+      <h3 style="font-size:15px; color: var(--muted); margin-top:8px;">1.1 Information You Provide</h3>
+      <ul>
+        <li><strong>Skin photos:</strong> Images you capture or upload for analysis.</li>
+        <li><strong>Symptom data:</strong> Body location, duration, symptoms, medications, and other health context you enter in the form.</li>
+        <li><strong>Account information:</strong> Email address if you create an account (optional).</li>
+        <li><strong>Chat messages:</strong> Text and images sent in the AI chat feature.</li>
+      </ul>
+      <h3 style="font-size:15px; color: var(--muted); margin-top:8px;">1.2 Automatically Collected Information</h3>
+      <ul>
+        <li>Device type and operating system version (for compatibility purposes).</li>
+        <li>App usage data (e.g., feature interactions) collected anonymously.</li>
+        <li>Subscription and purchase history managed by Apple/RevenueCat.</li>
+      </ul>
+
+      <h3>2. How We Use Your Information</h3>
+      <ul>
+        <li>To provide AI-powered skin analysis and generate reports.</li>
+        <li>To power the AI chat feature with dermatology-focused responses.</li>
+        <li>To maintain your scan history if you choose to save it.</li>
+        <li>To process and manage in-app subscriptions.</li>
+        <li>To improve the accuracy and quality of our AI models (using only anonymised, aggregated data).</li>
+        <li>To respond to support requests.</li>
+      </ul>
+
+      <h3>3. Data Storage &amp; Security</h3>
+      <p>Skin photos submitted for analysis are processed on our secure AI server. Images are <strong>not permanently stored</strong> unless you explicitly choose to save your scan history. All data transmissions between the app and our servers use HTTPS encryption. We implement industry-standard security measures including access controls and encrypted storage.</p>
+
+      <h3>4. Data Sharing</h3>
+      <p>We do <strong>not</strong> sell, trade, or rent your personal information to third parties. We may share data with:</p>
+      <ul>
+        <li><strong>Apple Inc.</strong> — For in-app purchase and subscription management.</li>
+        <li><strong>RevenueCat</strong> — For subscription analytics (anonymised).</li>
+        <li><strong>Law enforcement</strong> — If required by law or legal process.</li>
+      </ul>
+      <p>We do not share your health images or medical data with any third parties.</p>
+
+      <h3>5. Your Rights</h3>
+      <ul>
+        <li><strong>Access:</strong> You may request a copy of your stored data by contacting us.</li>
+        <li><strong>Deletion:</strong> You may delete your scan history at any time from Settings → Delete History. To delete your account and all associated data, use Settings → Delete Account.</li>
+        <li><strong>Consent Withdrawal:</strong> You may revoke your consent to data processing at any time from Settings → Privacy Controls.</li>
+        <li><strong>Portability:</strong> Contact us to request your data in a portable format.</li>
+      </ul>
+      <p>If you are in the European Economic Area (EEA), you have rights under the GDPR. If you are in California, you have rights under the CCPA. Contact us at <a href="mailto:info@idakimi.com">info@idakimi.com</a> to exercise any of these rights.</p>
+
+      <h3>6. Children's Privacy</h3>
+      <p>DermaRash is not directed at children under the age of 13 (or 16 in the EEA). We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us immediately.</p>
+
+      <h3>7. Health Data</h3>
+      <p>DermaRash may process photos that contain sensitive health-related imagery. This data is used solely to provide the AI analysis service and is handled with the highest level of care. We are not a covered entity under HIPAA, and DermaRash is not a medical device. Analysis results are AI-generated and for informational purposes only.</p>
+
+      <h3>8. Retention</h3>
+      <p>We retain scan data for as long as your account is active or as needed to provide the service. You may delete your data at any time. Upon account deletion, all associated personal data is removed from our systems within 30 days.</p>
+
+      <h3>9. Changes to This Policy</h3>
+      <p>We may update this Privacy Policy periodically. We will notify you of significant changes via in-app notification. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+
+      <h3>10. Contact</h3>
+      <p>For privacy-related questions or requests:<br>
+        <strong>Evren Haznedaroglu</strong><br>
+        Email: <a href="mailto:info@idakimi.com">info@idakimi.com</a><br>
+        Phone: <a href="tel:+447441922077">+44 744 192 2077</a>
+      </p>
+
+      <hr class="legal-divider" />
+
+      <!-- Terms of Use -->
+      <h2 id="terms" style="font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin: 0 0 16px;">Terms of Use</h2>
+      <span class="legal-date">Last updated: April 15, 2026</span>
+
+      <p>These Terms of Use ("Terms") govern your use of the DermaRash mobile application ("App") operated by Evren Haznedaroglu ("we", "us", or "our"). By downloading or using the App, you agree to be bound by these Terms.</p>
+
+      <h3>1. Acceptance of Terms</h3>
+      <p>By accessing or using DermaRash, you confirm that you are at least 13 years of age (or 16 in the EEA), and that you agree to these Terms and our Privacy Policy.</p>
+
+      <h3>2. Medical Disclaimer — PLEASE READ CAREFULLY</h3>
+      <div class="warning-box" style="margin: 16px 0;">
+        ⚠️ <strong>DermaRash is NOT a medical diagnostic tool.</strong> The AI-generated analyses provided by this application are for <strong>informational and educational purposes only</strong>. They do not constitute medical advice, diagnosis, or treatment. Always consult a qualified physician, dermatologist, or other licensed healthcare provider for any medical concerns. <strong>Never disregard professional medical advice or delay seeking it because of something you read in this application.</strong>
+      </div>
+      <ul>
+        <li>DermaRash <strong>does not replace</strong> a consultation with a qualified dermatologist or medical professional.</li>
+        <li>The AI models may produce inaccurate, incomplete, or misleading results.</li>
+        <li>If you are experiencing a medical emergency, call emergency services (911, 999, 112, or your local number) immediately.</li>
+        <li>We are not responsible for any harm resulting from reliance on app-generated content.</li>
+      </ul>
+
+      <h3>3. License</h3>
+      <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use the App for your personal, non-commercial purposes. You may not:</p>
+      <ul>
+        <li>Copy, modify, distribute, sell, or lease any part of our App.</li>
+        <li>Reverse-engineer or attempt to extract the source code of the App.</li>
+        <li>Use the App to build a competing product or service.</li>
+        <li>Submit false, misleading, or fraudulent information.</li>
+      </ul>
+
+      <h3>4. Subscriptions &amp; Payments</h3>
+      <ul>
+        <li>DermaRash offers optional Premium subscriptions (Weekly, Monthly, Yearly) that unlock additional features.</li>
+        <li>Subscriptions are processed through Apple's in-app purchase system and governed by Apple's Terms of Service.</li>
+        <li>Subscriptions <strong>auto-renew</strong> unless cancelled at least 24 hours before the end of the current period.</li>
+        <li>You can manage and cancel subscriptions through your Apple ID account settings.</li>
+        <li>No refunds are provided for partial subscription periods, except as required by applicable law.</li>
+        <li>Prices are subject to change. You will be notified in advance of any price changes.</li>
+      </ul>
+
+      <h3>5. User Responsibilities</h3>
+      <ul>
+        <li>You are responsible for all activity that occurs under your account.</li>
+        <li>You must not use the App for any illegal or unauthorized purpose.</li>
+        <li>You must not submit images of other persons without their explicit consent.</li>
+        <li>You agree not to submit offensive, illegal, or inappropriate content.</li>
+      </ul>
+
+      <h3>6. Intellectual Property</h3>
+      <p>All content, features, and functionality of DermaRash — including but not limited to text, graphics, logos, and software — are owned by Evren Haznedaroglu and are protected by intellectual property laws. AI-generated reports are provided for your personal use only.</p>
+
+      <h3>7. Disclaimer of Warranties</h3>
+      <p>The App is provided "as is" and "as available" without warranties of any kind. We do not warrant that the App will be uninterrupted, error-free, or free of viruses. We do not warrant the accuracy, completeness, or usefulness of any AI-generated content.</p>
+
+      <h3>8. Limitation of Liability</h3>
+      <p>To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of, or inability to use, the App or any content generated by it. This includes any health decisions made based on AI-generated analysis.</p>
+
+      <h3>9. Governing Law</h3>
+      <p>These Terms shall be governed by and construed in accordance with the laws of England and Wales, without regard to its conflict of law provisions.</p>
+
+      <h3>10. Changes to Terms</h3>
+      <p>We reserve the right to modify these Terms at any time. We will notify you of material changes via in-app notification. Your continued use after the effective date constitutes acceptance.</p>
+
+      <h3>11. Contact</h3>
+      <p>For questions about these Terms:<br>
+        <strong>Evren Haznedaroglu</strong><br>
+        Email: <a href="mailto:info@idakimi.com">info@idakimi.com</a><br>
+        Phone: <a href="tel:+447441922077">+44 744 192 2077</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Support ── -->
+<section id="support">
+  <div class="container">
+    <h2 class="section-title">Support &amp; Contact</h2>
+    <p class="section-sub">We're here to help. Reach out through any of the channels below.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <h3>Email Support</h3>
+        <p>For technical issues, feedback, account questions, or privacy requests.</p>
+        <a href="mailto:info@idakimi.com">info@idakimi.com</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>Phone</h3>
+        <p>Available Monday–Friday, 9:00–18:00 GMT.</p>
+        <a href="tel:+447441922077">+44 744 192 2077</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🔒</div>
+        <h3>Privacy Requests</h3>
+        <p>To exercise GDPR / CCPA rights, request data deletion, or ask privacy questions.</p>
+        <a href="mailto:info@idakimi.com?subject=Privacy Request">Send Request</a>
+      </div>
+    </div>
+
+    <div class="guide-block" style="margin-top:40px;">
+      <h3>❓ Frequently Asked Questions</h3>
+      <ul>
+        <li><strong>Is DermaRash a replacement for seeing a doctor?</strong> — No. DermaRash provides AI-generated informational analysis only. Always consult a healthcare professional for medical advice.</li>
+        <li><strong>How accurate is the AI?</strong> — Our AI is trained on dermatology data, but results may be inaccurate. Match confidence levels ("Higher / Moderate / Lower") indicate the AI's confidence, not a confirmed diagnosis.</li>
+        <li><strong>Are my photos stored?</strong> — Photos are processed for analysis. If you choose not to save your history, images are not permanently stored on our servers.</li>
+        <li><strong>How do I cancel my subscription?</strong> — Go to iPhone Settings → Apple ID → Subscriptions → DermaRash → Cancel.</li>
+        <li><strong>How do I delete my account?</strong> — Go to DermaRash → Settings → Delete Account. All data is removed within 30 days.</li>
+        <li><strong>The analysis failed — what should I do?</strong> — Try retaking the photo with better lighting and focus. If the issue persists, use the "Re-analyze" button or contact support.</li>
+        <li><strong>Which languages are supported?</strong> — English, Turkish (Türkçe), and Spanish (Español). Change language in Settings → Language.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-logo">🩺 DermaRash</div>
+  <p class="footer-tagline">AI-Powered Skin Analysis · Not a medical device</p>
+  <div class="footer-links">
+    <a href="#features">Features</a>
+    <a href="#user-guide">User Guide</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#terms">Terms of Use</a>
+    <a href="#support">Support</a>
+    <a href="mailto:info@idakimi.com">Contact</a>
+  </div>
+  <p style="font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:12px;">
+    Evren Haznedaroglu &nbsp;·&nbsp; <a href="mailto:info@idakimi.com" style="color:rgba(255,255,255,0.5);">info@idakimi.com</a> &nbsp;·&nbsp; <a href="tel:+447441922077" style="color:rgba(255,255,255,0.5);">+44 744 192 2077</a>
+  </p>
+  <p class="footer-copy">© 2026 Evren Haznedaroglu. All rights reserved. DermaRash is for informational purposes only and does not provide medical advice.</p>
+</footer>
+
+</body>
+</html>
