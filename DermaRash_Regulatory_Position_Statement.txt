@@ -1,0 +1,113 @@
+DERMARASH — REGULATORY POSITION STATEMENT
+
+April 22, 2026
+
+
+Product Name:      DermaRash (iOS application)
+
+Developer:         Evren Haznedaroglu
+
+Version reviewed:  1.5
+
+Submission ID:     d0c561c9-51c3-4840-a11f-8a36e0d5e95c
+
+
+1. INTENDED USE
+
+DermaRash is a consumer, AI-assisted EDUCATIONAL application that allows a
+user to learn about general skin-appearance information that visually
+resembles a photo they have captured of themselves. All output is
+informational and backed by citations to authoritative public health and
+dermatology sources (American Academy of Dermatology, National Health
+Service UK, Mayo Clinic, DermNet NZ, NIH MedlinePlus, World Health
+Organization).
+
+
+2. NOT A MEDICAL DEVICE — BASIS OF SELF-CLASSIFICATION
+
+DermaRash does not diagnose, cure, mitigate, prevent, or treat any
+disease. It does not recommend, prescribe, or adjust medication, dosage,
+or any form of clinical treatment. It does not perform clinical
+measurement or provide triage.
+
+
+2.1 United States — FDA 21 CFR 880 / General Wellness Guidance
+
+    (FDA, "General Wellness: Policy for Low-Risk Devices", Sept 2019)
+
+    DermaRash meets the criteria for a General Wellness product:
+
+      (a) its intended use relates to maintaining or encouraging a
+          general state of health or a healthy activity (general
+          awareness of skin appearance and public-source education);
+
+      (b) it does not present inherent risk to a user's safety when used
+          as intended, because it provides educational information only,
+          carries a mandatory educational notice in the product, and is
+          limited to visual reference notes and public-source reading
+          links;
+
+      (c) no claim is made that it diagnoses, cures, mitigates, prevents,
+          or treats any specific disease or condition.
+
+
+2.2 European Union — MDR 2017/745, Annex VIII, Rule 11
+
+    DermaRash is not software intended to provide information which is
+    used to take decisions with diagnosis or therapeutic purposes. It
+    provides general educational information only. It does not qualify
+    as a medical device under Article 2(1) and is therefore outside the
+    scope of MDR 2017/745.
+
+
+2.3 United Kingdom — MHRA "Software and AI as a Medical Device"
+
+    DermaRash does not meet the functional definition of a Software as a
+    Medical Device (SaMD) under the MHRA guidance because its output is
+    purely educational and does not drive, inform, or support clinical
+    decisions.
+
+
+3. RISK CONTROLS EMBEDDED IN THE PRODUCT
+
+  (a) Mandatory consent screen before any data submission, disclosing
+      what data is sent, to whom, and how it is used.
+
+  (b) Non-diagnostic terminology throughout the application (e.g.
+      "Visible Features Summary", "Visible Feature Notes", "Public
+      Reading Links").
+
+  (c) Educational banner and app notice on every report.
+
+  (d) Hard AI guardrails in all three supported languages forbidding
+      diagnosis, prescription, dosage, and definitive clinical language.
+
+  (e) Curated public-source links shown with each report.
+
+  (f) No diagnosis, treatment, prescription, or triage language in the
+      user-facing output.
+
+
+4. DATA HANDLING
+
+DermaRash does not use any third-party AI provider (no OpenAI, Google,
+Anthropic, AWS Bedrock, Azure, or similar). AI inference runs on
+self-hosted infrastructure operated by the developer at
+derma.idakim.net. User data is not used to train AI models, is not
+sold, and is not shared with advertisers. Full disclosure is available
+at https://evrenhaznedaroglu2024-ops.github.io/derman/#privacy §5.
+
+
+5. DECLARATION
+
+I confirm that, based on the criteria above, DermaRash does not require
+regulatory clearance from the FDA, the EU MDR notified body system, or
+the UK MHRA, and is marketed strictly as a general-wellness, educational
+consumer application.
+
+
+Signed: Evren Haznedaroglu
+
+Date:   April 22, 2026
+
+Contact: info@idakimi.com · +44 744 192 2077
