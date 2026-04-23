@@ -28,7 +28,7 @@ Organization).
 DermaRash does not diagnose, cure, mitigate, prevent, or treat any
 disease. It does not recommend, prescribe, or adjust medication, dosage,
 or any form of clinical treatment. It does not perform clinical
-measurement or provide triage.
+measurement or provide care-routing decisions.
 
 
 2.1 United States — FDA 21 CFR 880 / General Wellness Guidance
@@ -84,14 +84,13 @@ measurement or provide triage.
 
   (e) Curated public-source links shown with each report.
 
-  (f) No diagnosis, treatment, prescription, or triage language in the
+  (f) No diagnosis, treatment, prescription, or care-routing language in the
       user-facing output.
 
 
 4. DATA HANDLING
 
-DermaRash does not use any third-party AI provider (no OpenAI, Google,
-Anthropic, AWS Bedrock, Azure, or similar). AI inference runs on
+DermaRash does not use any third-party AI service. AI inference runs on
 self-hosted infrastructure operated by the developer at
 derma.idakim.net. User data is not used to train AI models, is not
 sold, and is not shared with advertisers. Full disclosure is available

@@ -12,7 +12,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
 endobj
 5 0 obj
-<< /Length 2109 >>
+<< /Length 2125 >>
 stream
 BT
 /F1 11 Tf
@@ -78,7 +78,7 @@ T*
 T*
 (or any form of clinical treatment. It does not perform clinical) Tj
 T*
-(measurement or provide triage.) Tj
+(measurement or provide care-routing decisions.) Tj
 T*
 () Tj
 T*
@@ -120,7 +120,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
 endobj
 7 0 obj
-<< /Length 2193 >>
+<< /Length 2204 >>
 stream
 BT
 /F1 11 Tf
@@ -202,7 +202,7 @@ T*
 T*
 () Tj
 T*
-(  \(f\) No diagnosis, treatment, prescription, or triage language in the) Tj
+(  \(f\) No diagnosis, treatment, prescription, or care-routing language in the) Tj
 T*
 (      user-facing output.) Tj
 T*
@@ -214,13 +214,13 @@ T*
 T*
 () Tj
 T*
-(DermaRash does not use any third-party AI provider \(no OpenAI, Google,) Tj
-T*
-(Anthropic, AWS Bedrock, Azure, or similar\). AI inference runs on) Tj
+(DermaRash does not use any third-party AI service. AI inference runs on) Tj
 T*
 (self-hosted infrastructure operated by the developer at) Tj
 T*
 (derma.idakim.net. User data is not used to train AI models, is not) Tj
+T*
+(sold, and is not shared with advertisers. Full disclosure is available) Tj
 ET
 endstream
 endobj
@@ -228,14 +228,12 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
 endobj
 9 0 obj
-<< /Length 657 >>
+<< /Length 578 >>
 stream
 BT
 /F1 11 Tf
 50 790 Td
 14 TL
-(sold, and is not shared with advertisers. Full disclosure is available) Tj
-T*
 (at https://evrenhaznedaroglu2024-ops.github.io/derman/#privacy §5.) Tj
 T*
 () Tj
@@ -278,12 +276,12 @@ xref
 0000000127 00000 n 
 0000000197 00000 n 
 0000000323 00000 n 
-0000002484 00000 n 
-0000002610 00000 n 
-0000004855 00000 n 
-0000004981 00000 n 
+0000002500 00000 n 
+0000002626 00000 n 
+0000004882 00000 n 
+0000005008 00000 n 
 trailer
 << /Size 10 /Root 1 0 R >>
 startxref
-5689
+5637
 %%EOF
